@@ -8,3 +8,4 @@ Code.SumLookup(LookupSet(Fields!Conta.Value, Fields!Conta.Value, Fields!Cenário
 
 Code.SumLookup(LookupSet(Fields!Centro_de_Custos.Value, Fields!Centro_de_Custos.Value, Fields!Cenário_1.Value, "DSDadosPeriodoAnterior2"))
 
+Code.SumLookup(Lookupset(Fields!Conta___ID.Value = 2553, Fields!Conta___ID.Value = 2553, Fields!Cenário_1.Value, "DsDadosPeriodoAnterior"))
