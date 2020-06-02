@@ -3,3 +3,8 @@ Lookup("DRE - RECEITA BRUTA" & Parameters!paramMesAnoPassado.Label, Fields!Conta
 
 =Code.Divisao(Sum(IIF(Fields!Level_8.Value = "REPASSE À PARCEIROS - REPASSE À PARCEIROS", Cdec(Fields!ProjMesAtual.Value), Cdec(0) ))
  ,Sum(IIF(Fields!Level_7.Value = "DRE - RECEITA BRUTA", Cdec(Fields!ProjMesAtual.Value), Cdec(0) )))
+
+Code.SumLookup(LookupSet(Fields!Conta.Value, Fields!Conta.Value, Fields!Cenário_1.Value, "DsDadosPeriodoAnterior"))
+
+Code.SumLookup(LookupSet(Fields!Centro_de_Custos.Value, Fields!Centro_de_Custos.Value, Fields!Cenário_1.Value, "DSDadosPeriodoAnterior2"))
+
