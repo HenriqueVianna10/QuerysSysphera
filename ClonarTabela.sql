@@ -1,0 +1,1 @@
+select *  into DT_acessos_matricial_backup from DT_acessos_matricial
