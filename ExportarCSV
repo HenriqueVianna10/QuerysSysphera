@@ -1,0 +1,27 @@
+declare @txtCSV as varchar(max)
+declare @varCSV as varbinary(max)
+SELECT @txtCSV = 'sk_cenario;cenario;sk_tempo;tempo;ano;mes;sk_conta;conta;codigo_conta;sk_entidade;entidade;codigo_estabelecimento;sk_centro_de_custo;'+
+				  'centro_de_custo;codigo_centro_de_custo;sk_consolidacao;consolidacao;sk_cliente;cliente;sk_produto;produto;valor_sinal'+char(10)+
+  STUFF(
+    (select char(10)+
+               cenario + ';' + cast(sk_cenario as nvarchar(30)) + ';' 
+			 + tempo + ';' + cast(sk_tempo as nvarchar(30)) + ';'
+			 + cast(ano as nvarchar(20)) + ';'
+			 + mes + ';'
+			 + conta + ';' + cast(sk_conta as nvarchar(30)) + ';'
+			 + cast(codigo_conta as nvarchar(20)) + ';'
+			 + entidade + ';' + cast(sk_entidade as nvarchar(30)) + ';'
+			 + codigo_estabelecimento + ';'
+			 + centro_de_custo + ';' + cast(sk_centro_de_custo as nvarchar(30)) + ';'
+			 + cast(codigo_centro_de_custo as nvarchar(30)) + ';'
+			 + consolidacao + ';' + cast(sk_consolidacao as nvarchar(30)) + ';'
+			 + cliente + ';' + cast(sk_cliente as nvarchar(30)) + ';'
+			 + produto + ';' + cast(sk_produto as nvarchar(30)) + ';'
+			 + cast(valor_sinal as nvarchar(30)) 
+     from   vw_app1
+     where  sk_cenario = 3
+          FOR XML PATH('')), 1, 1, '') ;
+select @varCSV = cast(@txtCSV as varbinary(max))
+
+insert into _etl_export(cod_user, dat_update, arquivo, arquivo_fileName, observacoes, txt)
+values ('admin',getdate(),@varCSV,'export.csv','teste03',@txtCSV)
