@@ -1,12 +1,14 @@
 USE [PRJ_GRUPO_RBS]
 GO
 
-/****** Object:  StoredProcedure [dbo].[sp_etl_atualiza_DT_Pluri]    Script Date: 6/30/2020 7:57:40 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_etl_atualiza_DT_Pluri]    Script Date: 7/1/2020 7:44:17 PM ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
+
 
 
 
@@ -180,17 +182,18 @@ BEGIN
 	FROM tmp_etl_export_pluri
 	WHERE cod_pacote <> 'Pacote';
 
+
 	--Limpa Fato
-	DELETE
-	FROM _f_app3
+	DELETE 
+	FROM f_app3
 	WHERE sk_tempo IN (
-			SELECT tempo_l0
-			FROM d_tempo_app3 where  @ano = tempo_l0
+			SELECT sk_tempo
+			FROM d_tempo_app3 where id_tempo_l0 = @ano
 			)
 		AND sk_cenario = @sk_cenario
 
 -- insere os dados na fato
-	INSERT INTO _f_app3 (
+	INSERT INTO f_app3 (
 		sk_conta
 		,sk_tempo
 		,sk_cenario
