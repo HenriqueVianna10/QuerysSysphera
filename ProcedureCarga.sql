@@ -1,7 +1,7 @@
 USE [PRJ_GRUPO_RBS]
 GO
 
-/****** Object:  StoredProcedure [dbo].[sp_etl_atualiza_DT_Pluri]    Script Date: 7/1/2020 7:44:17 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_etl_atualiza_DT_Pluri]    Script Date: 7/15/2020 5:55:24 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,7 +12,9 @@ GO
 
 
 
-ALTER PROCEDURE [dbo].[sp_etl_atualiza_DT_Pluri]
+
+
+CREATE PROCEDURE [dbo].[sp_etl_atualiza_DT_Pluri]
 AS
 BEGIN
 	--
@@ -156,12 +158,14 @@ BEGIN
 		,cod_conta
 		,sk_cenario
 		,sk_tempo
+		,tmp_sk_conta
+		,tmp_sk_entidade
 		)
 	SELECT 
 		 'etl'
 		,getdate()
-		,LTRIM(RTRIM(sk_entidade))
-		,LTRIM(RTRIM(sk_conta))
+		,-2
+		,-2
 		,cast(iif(ltrim(rtrim(replace(replace(janeiro, '.', ''), ',', '.'))) NOT IN ('','-'), ltrim(rtrim(replace(replace(janeiro, '.', ''), ',', '.'))), '0') AS DECIMAL(23, 4)) AS janeiro
 		,cast(iif(ltrim(rtrim(replace(replace(fevereiro, '.', ''), ',', '.'))) NOT IN ('','-'), ltrim(rtrim(replace(replace(fevereiro, '.', ''), ',', '.'))), '0') AS DECIMAL(23, 4)) AS fevereiro
 		,cast(iif(ltrim(rtrim(replace(replace(marco, '.', ''), ',', '.'))) NOT IN ('','-'), ltrim(rtrim(replace(replace(marco, '.', ''), ',', '.'))), '0') AS DECIMAL(23, 4)) AS marco
@@ -179,8 +183,24 @@ BEGIN
 		,LTRIM(RTRIM(cod_conta))
 		,@sk_cenario
 		,@ano
+		,LTRIM(RTRIM(sk_conta))
+		,LTRIM(RTRIM(sk_entidade))
 	FROM tmp_etl_export_pluri
 	WHERE cod_pacote <> 'Pacote';
+
+	--Atualiza as Sk das Contas
+	Update DT_etl_pluri_tmp
+	set sk_conta = tmp_sk_conta
+	from DT_etl_pluri_tmp dt inner join
+	d_conta_app3 c on dt.sk_conta = c.sk_conta
+	where tmp_sk_conta in (select sk_conta from d_conta_app3)
+
+	--Atualiza as Sk das Entidade
+	Update DT_etl_pluri_tmp
+	set sk_entidade = tmp_sk_entidade
+	from DT_etl_pluri_tmp dt inner join
+	d_entidade_app3 c on dt.sk_conta = c.sk_entidade
+	where tmp_sk_entidade in (select sk_entidade from d_entidade_app3)
 
 
 	--Limpa Fato
@@ -194,7 +214,7 @@ BEGIN
 
 -- insere os dados na fato
 	INSERT INTO f_app3 (
-		sk_conta
+		 sk_conta
 		,sk_tempo
 		,sk_cenario
 		,sk_entidade

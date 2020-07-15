@@ -37,7 +37,7 @@ select top 10000
 from vw_app1 
 where sk_entidade in (@paramEntidade) and
 sk_cenario in (@paramCenario)
-and dat_update between (@paramTempoInicial) and (@ParamTempoFinal) and
+and dat_update between (@paramTempoInicial) and (dateadd(day,1,@ParamTempoFinal)) and
 type_update in ('1', '6','7','9')
 order by dat_update DESC
 
