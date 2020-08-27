@@ -51,6 +51,7 @@ BEGIN
 
 
 	INSERT tmp_etl_export_pluri_dados (id)
+	--SELECT replace(replace(value, '"', ''), CHAR(13), '') as id -- ALteração gabriel evitando campos delimitados por aspas
 	SELECT value AS id
 	FROM string_split(cast(@data AS VARCHAR(max)), CHAR(10));
 
