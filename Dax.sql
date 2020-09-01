@@ -6,3 +6,5 @@ Margem = 1 - (DIVIDE([Preço Custo], [Valor de Venda],0))
 
 Media Vendas = AVERAGE(Custos[Valor de Venda])
 
+Trim - espaços no começo e no FIm
+Clean - espaços no meio 
