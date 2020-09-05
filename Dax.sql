@@ -8,3 +8,6 @@ Media Vendas = AVERAGE(Custos[Valor de Venda])
 
 Trim - espaços no começo e no FIm
 Clean - espaços no meio 
+
+
+[Peso] / (([Altura] / 100) * ([Altura] / 100))
