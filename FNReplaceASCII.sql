@@ -1,0 +1,1 @@
+dbo.FN_ReplaceASCII(p.nome) as nome
