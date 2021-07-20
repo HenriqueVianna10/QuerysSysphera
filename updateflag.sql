@@ -1,0 +1,1 @@
+UPDATE REP_NOTIFICATION SET flgState = 5, datEnd = GETDATE() WHERE (datEnd IS NULL) AND (datStart < GETDATE())
