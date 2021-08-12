@@ -1,0 +1,6 @@
+--begin tran
+--update REP_XML
+--set coduserLock = NULL 
+--where flgValid = 'S' and codXMLType in (1,3)
+--and codUserLock is not null
+--commit
