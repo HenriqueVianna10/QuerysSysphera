@@ -1,0 +1,27 @@
+// Define the JSON Schema
+const jsonSchema = {
+    // "required": ["CCCBEM"],
+    "properties": {
+    "CCCBEM": {"type": "string"},
+    "CCCDEP": {"type": "string"},
+    "CCODBASEBEM": {"type": "string"},
+    "CCONTA": {"type": "string"},
+    "CCTADEPACUM": {"type": "string"},
+    "CCTADESPDEP": {"type": "string"},
+    "CDTAQUIS": {"type": "string"},
+    "CDTBAIXA": {"type": "string"},
+    "CDTINDEPREC": {"type": "string"},
+    "CFIL": {"type": "string"},
+    "CHIST": {"type": "string"},
+    "CTPDEPRE": {"type": "string"},
+    "CTPSALDO": {"type": "string"},
+    "NTXANDEPR1": {"type": "integer"},
+    "NVLRORIM1": {"type": "number"}
+    }
+    };
+    
+     
+    
+    // Test whether the response matches the schema
+    var jsonBody = JSON.parse(responseBody);
+    tests["JSON is valid"] = tv4.validate(jsonBody, jsonSchema);
