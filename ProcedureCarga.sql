@@ -9,7 +9,13 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-
+/*
+Cria a tabela que vai receber os dados
+CREATE TABLE [dbo].[tmp_etl_export_pluri_dados](
+	[id] [varchar](max) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+*/
 
 
 
