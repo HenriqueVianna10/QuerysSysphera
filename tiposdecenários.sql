@@ -1,0 +1,3 @@
+--0 realizado 
+--1 planejado 
+--2 fechado 
