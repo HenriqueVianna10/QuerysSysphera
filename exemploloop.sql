@@ -1,4 +1,4 @@
-DECLARE @counter2 int;
+	DECLARE @counter2 int;
 	DECLARE @total2 int;
 	DECLARE @cod2 int;
 
