@@ -1,0 +1,1 @@
+inner join d_tempo_app1 tempo on LTRIM(RTRIM(DT.ano)) = tempo.tempo_l1 and IIF(LTRIM(RTRIM(DT.mes)) < 10, '0' + LTRIM(RTRIM(DT.mes)), LTRIM(RTRIM(DT.mes))) = RIGHT(id_tempo_l4,2)
