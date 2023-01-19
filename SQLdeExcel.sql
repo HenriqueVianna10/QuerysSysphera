@@ -1,0 +1,1 @@
+="INSERT INTO TMP_DADOS_FLUXO_CAIXA(codgrupo, descgrupo, codflx, descflx, tpmov, es, total, cc) VALUES('" & A2 & "', '" & B2 & "','" & C2 & "', '" & D2 & "', '" & E2 & "', '" & F2 & "', '" & G2 & "','" & H2 & "')"
