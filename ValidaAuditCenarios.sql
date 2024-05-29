@@ -1,5 +1,6 @@
 select cen.cenario as Cenario, tempo.tempo_l4 as Mes, 
-case when DT.value = '1' then 'Aberto'  
+case when DT.value = '0' then 'Realizado'  
+	 when DT.value = '1' then 'Planejado'
 	 else 'Fechado'
 	 end as [Status],
 	 usr.codUser as Usuário,
@@ -8,7 +9,6 @@ from f_app1_scenario_audit DT
 inner join d_cenario_app1 cen on DT.sk_scenario = cen.sk_cenario
 inner join d_tempo_app1 tempo on DT.sk_time = tempo.sk_tempo
 inner join REP_USER usr on usr.userCode = dt.user_code
-where sk_scenario = 39
+where sk_scenario = 13
 order by dat_update desc
-
 
