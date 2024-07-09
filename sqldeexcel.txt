@@ -1,1 +1,0 @@
-="insert into tabela (codigo,nome) values ('" &[@[cod_conta]] & "'," & [@7] & ")"
