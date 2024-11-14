@@ -81,13 +81,7 @@ from VW_Visão_AIS
 insert into DT_exporta_arquivos(cod_user, dat_update, arquivo_aic,cenario, arquivo_aic_fileName, arquivo_ais,arquivo_ais_fileName, data_geracao, mes)
 values ('hvianna',getdate(), @varCSV,@sk_cenario,'AIC_Extração_SAP-'+@cenario+'.csv',@varCSV2,'AIS_Extração_SAP-'+@cenario+'.txt',@data, @sk_tempo)
 
-
-
-								
-
-
-							
-
+											
 END
 
 
