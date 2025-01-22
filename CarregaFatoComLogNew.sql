@@ -46,18 +46,11 @@ BEGIN
 	END TRY
 
     BEGIN CATCH
-	    declare @errorCode int;
-		declare @errorMessage nvarchar(max);
-		select @errorCode = ERROR_NUMBER(), @errorMessage = ERROR_MESSAGE();
-		declare @error nvarchar(max);
-		declare @descricao_erro nvarchar(max);
-		select @error = CAST(error_number() as VARCHAR(100)) + '::' + ERROR_MESSAGE();
-		 set @descricao_erro = 'Erro no carregamento da fato ' + @error
-
-        exec sp_t6_etl_log_add @descricao_erro, @grupo = 'sp_carrega_fato_cons', @tipo_processo = 2, @tipo = 'A';
-	 
-        THROW;
+	     
+	    SELECT @erro = CAST(ERROR_NUMBER() AS VARCHAR(100)) + '::' + ERRO_MESSAGE()
+        set @descricao_erro = @ERRO 
+        exec sp_t6_etl_log_add  @descricao_erro, @grupo = 'Carregamento Tabela de Construção', @tipo_processo = 2, @tipo = 'E';
+        RAISERROR(@ERRO,18,2)
     END CATCH
-
-
+	
 END
