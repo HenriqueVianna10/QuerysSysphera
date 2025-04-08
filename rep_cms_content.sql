@@ -91,11 +91,14 @@ set	datLastModified = getdate(),
                                 <span class="suWindowContentGridCellsDatum suColumn2" d-model="{{row.Cells.[1].Value}}"></span>            
                                 <span class="suWindowContentGridCellsDatum suColumn7" d-model="{{row.Cells.[2].Value}}"></span>    
                                 <div class="suWindowContentGridCellsDatum suColumn1">  
-                                    <a d-attr-href="{{row.Cells.[4].Value}}" target="_blank">
+                                    <a d-attr-href="{{row.Cells.[4].Value}}" target="_blank" d-if="{{row.Cells.[5].Value}}=">
 									<span d-if="{{row.Cells.[3].Value}}=A" class="suStatusIcon suStatusWarning pp ppNotificationImageerror" d-attr-title="Ação" placeholder="Acessar Link" title="Acessar Link"></span>                               
                                     <span d-if="{{row.Cells.[3].Value}}=E" class="suStatusIcon suStatusDanger pp ppNotificationImageerror" d-attr-title="Erro" placeholder="Acessar Link" title="Acessar Link" d-on-click="RedirectPage({{row.Cells.[5].Value}});UpdateItemField({{row.Current}},true)"></span>                                                                  
-                                    <img d-if="{{row.Cells.[3].Value}}=I" class="suStatusIcon" d-attr-src="~/api/CMS/GetImage?id=Ok.png" d-attr-title="Concluí­do" d-attr-alt="Concluí­do"/> 
+                                    <img d-if="{{row.Cells.[3].Value}}=I" class="suStatusIcon" d-attr-src="~/api/CMS/GetImage?id=Ok.png" d-attr-title="Concluído" d-attr-alt="Concluído"/> 
 									</a>  
+                                    <span d-if="({{row.Cells.[3].Value}}=A)&&({{row.Cells.[5].Value}}=T)" class="suStatusIcon suStatusWarning pp ppNotificationImageerror" d-attr-title="Ação" placeholder="Acessar Link" title="Acessar Link" d-on-click="PushStack({{row.Cells.[4].Value}});Execute({{functionTaiExplorerOpenObject}})"></span>                               
+                                    <span d-if="({{row.Cells.[3].Value}}=E)&&({{row.Cells.[5].Value}}=T)" class="suStatusIcon suStatusDanger pp ppNotificationImageerror" d-attr-title="Erro" placeholder="Acessar Link" title="Acessar Link" d-on-click="PushStack({{row.Cells.[4].Value}});Execute({{functionTaiExplorerOpenObject}})"></span>                                                                  
+                                    <img d-if="({{row.Cells.[3].Value}}=I)&&({{row.Cells.[5].Value}}=T)" class="suStatusIcon" d-attr-src="~/api/CMS/GetImage?id=Ok.png" d-attr-title="Concluído" d-attr-alt="Concluído" placeholder="Acessar Link" title="Acessar Link" d-on-click="PushStack({{row.Cells.[4].Value}});Execute({{functionTaiExplorerOpenObject}})"/> 
                                 </div>        
                                 <span class="suWindowContentGridCellsDatum suColumn2" d-model="{{row.Cells.[0].Value}}" d-format="G" d-format-timezone="false"></span>         
                             </div>
