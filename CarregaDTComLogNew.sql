@@ -7,7 +7,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 ALTER PROCEDURE [dbo].[sp_carrega_dt_custo_de_construcao]
-
+(@id_instancia int)
 AS
 BEGIN
 
@@ -21,6 +21,15 @@ BEGIN
 	declare @rownum2 int;
 	declare @msg2 varchar(max);
 	declare @error varchar(max);
+    declare @usuario nvarchar(40);
+
+
+    select @usuario = usuario from VW_DT_wkf_aux_user_instance_start
+	where identificador = @id_instancia
+
+	select @usuario = ISNULL(@usuario,'admin')
+
+
 
 	BEGIN TRY
 
@@ -150,13 +159,12 @@ BEGIN
 
 	exec sp_t6_etl_log_add @msg2, @grupo = 'Carregamento Tabela de Construção', @tipo_processo = 2
 
-	END TRY
-
+	  END TRY
     BEGIN CATCH
-	    SELECT @erro = CAST(ERROR_NUMBER() AS VARCHAR(100)) + '::' + ERRO_MESSAGE()
-        set @descricao_erro = @ERRO 
-        exec sp_t6_etl_log_add  @descricao_erro, @grupo = 'Carregamento Tabela de Construção', @tipo_processo = 2, @tipo = 'E';
-        RAISERROR(@ERRO,18,2)
+        -- Tratamento de erro
+        select @txt = 'ERRO: ' + ERROR_MESSAGE();
+        exec sp_t6_etl_log_add @txt, @grupo = @grupo, @tipo_processo = @pTipoProcesso, @tipo = 'E';
+        THROW;
     END CATCH
 
 

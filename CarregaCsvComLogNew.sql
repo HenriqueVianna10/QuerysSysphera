@@ -8,7 +8,7 @@ GO
 
 
 ALTER PROCEDURE [dbo].[sp_carrega_csv_custo_de_construcao]
-(id_instancia int null)
+(@id_instancia int null)
 AS
 BEGIN
 
@@ -20,10 +20,10 @@ BEGIN
 	declare @msg varchar(max);
 	declare @check int;
 	declare @cenario int;
-	declare @usuario invarchar(40);
+	declare @usuario nvarchar(40);
 
 
-	select @usuario - usuario from VW_DT_wkf_aux_user_instance_start
+	select @usuario = usuario from VW_DT_wkf_aux_user_instance_start
 	where identificador = @id_instancia
 
 	select @usuario = ISNULL(@usuario,'admin') 

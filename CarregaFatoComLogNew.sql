@@ -6,6 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[sp_carrega_fato_cons]
+(@id_instancia int)
 AS
 BEGIN
 
@@ -15,6 +16,14 @@ BEGIN
 
     declare @rownum1 int;
 	declare @msg1 varchar(max);
+	  declare @usuario nvarchar(40);
+
+
+    select @usuario = usuario from VW_DT_wkf_aux_user_instance_start
+	where identificador = @id_instancia
+
+	select @usuario = ISNULL(@usuario,'admin')
+
 	
 
 	BEGIN TRY
@@ -26,7 +35,7 @@ BEGIN
 		   2 as sk_cenario,
 		   sk_entidade,
 		   sum(valor_moeda_transacao) as [value],
-		   'admin',
+		   @usuario,
 		   GETDATE(),
 		   '6',
 		   'CustoConstrucaoReal',
