@@ -1,5 +1,5 @@
 
-ALTER PROCEDURE [dbo].[sp_t6_etl_log_add]
+CREATE PROCEDURE [dbo].[sp_t6_etl_log_add]
 	@mensagem_erro	nvarchar(max) = NULL,   ---@mensagem_erro: a mensagem principal
 	@grupo			nvarchar(500) = 'LOG',  ---@grupo: agrupa as mensagens. Quando não informado, fica fixo LOG
 	@tipo			nvarchar(500) = 'I',    ---@tipo: o default é 'I' de Informação. Pode ser alterado para 'A' de Alerta, com fundo amarelo ou 'E' de Erro com o fundo vermelho.
