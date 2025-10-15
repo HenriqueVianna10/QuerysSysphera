@@ -1,15 +1,4 @@
-USE [cruzeirodosul_sysphera_prd]
-GO
-/****** Object:  StoredProcedure [dbo].[sp_exporta_gmd_csv]    Script Date: 5/4/2022 8:20:44 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-/**
-exec sp_exporta_gmd_csv 1,61
-*/
-ALTER procedure [dbo].[sp_exporta_gmd_csv]  as
+CREATE procedure [dbo].[sp_exporta_gmd_csv]  as
 
 
 DECLARE @cenario AS INT

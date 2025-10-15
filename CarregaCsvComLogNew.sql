@@ -1,13 +1,4 @@
-USE [copel_sysphera_dev]
-GO
-/****** Object:  StoredProcedure [dbo].[sp_carrega_csv_custo_de_construcao]    Script Date: 8/15/2024 6:59:19 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-ALTER PROCEDURE [dbo].[sp_carrega_csv_custo_de_construcao]
+CREATE PROCEDURE [dbo].[sp_carrega_csv_custo_de_construcao]
 (@id_instancia int null)
 AS
 BEGIN
@@ -155,37 +146,6 @@ BEGIN
 	
 	
 	exec sp_t6_etl_log_add  'Atualização de Sk´s.', @grupo = 'Processamento do CSV', @tipo_processo = 2
-
-	--Atualiza Sk´s Padrão
-	UPDATE DT_etl_tmp_get_movimentacao
-	set sk_entidade = -1, --Não Aplicável
-		sk_contrato = -1, --Não Aplicável
-		sk_conta = 176,
-		sk_cenario = @cenario
-				
-	---Atualiza SK Tempo
-	UPDATE DT_etl_tmp_get_movimentacao
-	set sk_tempo = tempo.sk_tempo
-	FROM DT_etl_tmp_get_movimentacao DT
-	inner join d_tempo_app5 tempo on tempo.tempo_l1 = RIGHT(DT.data_de_lancamento,4) and SUBSTRING(DT.data_de_lancamento,4,2) = RIGHT(tempo.id_tempo_l2,2)
-
-	--Atualiza Sk Entidade
-	UPDATE DT_etl_tmp_get_movimentacao
-	set sk_entidade = ent.sk_entidade
-	FROM DT_etl_tmp_get_movimentacao DT
-	inner join d_entidade_app5 ent on TRIM(DT.empresa) = ent.cod_empresa
-
-    --Atualiza Sk Contrato
-	UPDATE DT_etl_tmp_get_movimentacao
-	set sk_contrato = con.sk_contrato
-	from DT_etl_tmp_get_movimentacao DT
-	inner join d_contrato_app5 con on TRIM(DT.rec) = con.resolucao and TRIM(DT.[mod]) = con.cod_contrato
-
-	--Atualiza Sk Operação Cadastro Orçamentário
-	UPDATE DT_etl_tmp_get_movimentacao
-	set sk_operacao = op.sk_operacao
-	FROM DT_etl_tmp_get_movimentacao DT
-	inner join d_operacao_app5 op on TRIM(DT.programa_o) = op.codigo
 
 
 	exec sp_t6_etl_log_add  'Atualização de Sk´s Concluida com Sucesso.', @grupo = 'Processamento do CSV', @tipo_processo = 2

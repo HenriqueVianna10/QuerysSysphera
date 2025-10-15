@@ -1,12 +1,5 @@
-USE [cruzeirodosul_sysphera_prd]
-GO
-/****** Object:  StoredProcedure [dbo].[sp_rep_dataload_rest]    Script Date: 4/27/2022 8:17:32 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 
-ALTER PROCEDURE [dbo].[sp_rep_dataload_rest] (@Carga INT)
+CREATE PROCEDURE [dbo].[sp_rep_dataload_rest] (@Carga INT)
 AS
 BEGIN
 	SET NOCOUNT ON;

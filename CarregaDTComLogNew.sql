@@ -1,12 +1,5 @@
-USE [copel_sysphera_dev]
-GO
-/****** Object:  StoredProcedure [dbo].[sp_carrega_dt_custo_de_construcao]    Script Date: 8/15/2024 7:01:50 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 
-ALTER PROCEDURE [dbo].[sp_carrega_dt_custo_de_construcao]
+CREATE PROCEDURE [dbo].[sp_carrega_dt_custo_de_construcao]
 (@id_instancia int)
 AS
 BEGIN
@@ -20,7 +13,7 @@ BEGIN
 	declare @competencia varchar(max);
 	declare @rownum2 int;
 	declare @msg2 varchar(max);
-	declare @error varchar(max);
+	declare @txt nvarchar(max);
     declare @usuario nvarchar(40);
 
 
@@ -33,8 +26,8 @@ BEGIN
 
 	BEGIN TRY
 
-	--Delete from DT_get_movimentacao
-	--where sk_tempo in (select distinct sk_tempo from DT_etl_tmp_get_movimentacao)
+	Delete from DT_get_movimentacao
+	where sk_tempo in (select distinct sk_tempo from DT_etl_tmp_get_movimentacao)
 
 	set @rownum1 = @@ROWCOUNT
 
@@ -99,7 +92,7 @@ BEGIN
 
 
 	SELECT 
-	  'hvianna'
+	   @usuario
 	  ,GETDATE()
       ,[empresa]
       ,[data_de_lancamento]
@@ -150,8 +143,6 @@ BEGIN
 	  ,sk_contrato
 	  ,sk_operacao
   FROM [dbo].[DT_etl_tmp_get_movimentacao]
-
-  select top 1* from f_app5
 
   set @rownum2 = @@ROWCOUNT
   set @msg2 = '' +CAST(@rownum2 as varchar(max))+ ' Linhas carregadas na tabela de detalhe'

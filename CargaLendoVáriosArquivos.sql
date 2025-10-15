@@ -1,12 +1,4 @@
-USE [gruporbs_sysphera_prd]
-GO
-/****** Object:  StoredProcedure [dbo].[sp_importa_ur_csv]    Script Date: 5/18/2022 9:15:39 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[sp_importa_ur_csv]
+CREATE PROCEDURE [dbo].[sp_importa_ur_csv]
 AS
 BEGIN
 	DECLARE @id INT;
