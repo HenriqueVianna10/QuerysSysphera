@@ -15,6 +15,7 @@ BEGIN
 	declare @msg2 varchar(max);
 	declare @txt nvarchar(max);
     declare @usuario nvarchar(40);
+    declare @tipo_processo int = 2;
 
 
     select @usuario = usuario from VW_DT_wkf_aux_user_instance_start
@@ -36,7 +37,7 @@ BEGIN
 
 	set @msg1 = ''+ CAST(@rownum1 as varchar(max)) + ' Linhas deletadas na competência '+ CAST(@competencia as varchar(max)) +''
 
-	exec sp_t6_etl_log_add @msg1, @grupo = 'Carregamento Tabela de Construção', @tipo_processo = 2
+	exec sp_t6_etl_log_add @msg1, @grupo = 'Carregamento Tabela de Construção', @tipo_processo = @tipo_processo
 
 	INSERT INTO [dbo].[DT_get_movimentacao]
            ([cod_user]
@@ -148,7 +149,7 @@ BEGIN
   set @msg2 = '' +CAST(@rownum2 as varchar(max))+ ' Linhas carregadas na tabela de detalhe'
 	
 
-	exec sp_t6_etl_log_add @msg2, @grupo = 'Carregamento Tabela de Construção', @tipo_processo = 2
+	exec sp_t6_etl_log_add @msg2, @grupo = 'Carregamento Tabela de Construção', @tipo_processo = @tipo_processo
 
 	  END TRY
     BEGIN CATCH
