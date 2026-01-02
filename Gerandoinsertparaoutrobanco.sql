@@ -6,6 +6,23 @@ and f.sk_cenario = 80
 and d.sk_conta_l1 = 425
 
 
+SELECT 'insert into f_app2(sk_conta,sk_tempo,sk_cenario,sk_entidade,sk_cargo,sk_consolidacao,sk_unidade_operacional,sk_centro_de_resultado,sk_classe_de_valor,type_update,dat_update,value,cod_user)values('
+    + CAST(f.sk_conta AS nvarchar(50)) + ','
+    + CAST(sk_tempo AS nvarchar(50)) + ',80,'
+    + CAST(sk_entidade AS nvarchar(50)) + ','
+    + CAST(sk_cargo AS nvarchar(50)) + ','
+    + CAST(sk_consolidacao AS nvarchar(50)) + ','
+    + CAST(sk_unidade_operacional AS nvarchar(50)) + ','
+    + CAST(sk_centro_de_resultado AS nvarchar(50)) + ','
+    + CAST(sk_classe_de_valor AS nvarchar(50)) + ','
+    + CAST(type_update AS nvarchar(50)) + ','
+    + 'getdate(),'
+    + CAST(value AS nvarchar(50)) + ','
+    + '''' + cod_user + ''''
+    + ')'
+FROM f_app2 f
+WHERE sk_cenario = 10
+
 
 
 
