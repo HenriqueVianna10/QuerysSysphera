@@ -24,6 +24,23 @@ FROM f_app2 f
 WHERE sk_cenario = 10
 
 
+SELECT 'INSERT INTO f_app2(sk_conta,sk_tempo,sk_cenario,sk_entidade,sk_cargo,sk_consolidacao,sk_unidade_operacional,sk_centro_de_resultado,sk_classe_de_valor,type_update,dat_update,value,cod_user) VALUES('
+    + CAST(f.sk_conta AS NVARCHAR(50)) + ','
+    + CAST(f.sk_tempo AS NVARCHAR(50)) + ',10,'
+    + CAST(f.sk_entidade AS NVARCHAR(50)) + ','
+    + CAST(f.sk_cargo AS NVARCHAR(50)) + ','
+    + CAST(f.sk_consolidacao AS NVARCHAR(50)) + ','
+    + CAST(f.sk_unidade_operacional AS NVARCHAR(50)) + ','
+    + CAST(f.sk_centro_de_resultado AS NVARCHAR(50)) + ','
+    + CAST(f.sk_classe_de_valor AS NVARCHAR(50)) + ','
+    + CAST(f.type_update AS NVARCHAR(50)) + ','
+    + '''' + CONVERT(VARCHAR(23), ISNULL(f.dat_update, GETDATE()), 121) + ''', '
+    + CAST(f.value AS NVARCHAR(50)) + ','
+    + '''' + f.cod_user + ''''
+    + ');'
+FROM f_app2 f
+WHERE f.sk_cenario = 10;
+
 
 
 SELECT 'INSERT INTO DT_t6fg_depara_contas(cod_user, dat_update, sk_conta, data_inicial, data_final, sk_conta_dre, sk_conta_bp, sk_conta_dva, sk_conta_decof) VALUES('''
