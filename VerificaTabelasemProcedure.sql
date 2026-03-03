@@ -4,16 +4,6 @@ INNER JOIN sysobjects so ON sc.id=so.id
 WHERE sc.TEXT LIKE '%f_app1_backup%'
  
  
-SELECT DISTINCT so.name
-FROM syscomments sc
-INNER JOIN sysobjects so ON sc.id=so.id
-WHERE sc.TEXT LIKE '%f_app1_backup%'
- 
-
-SELECT DISTINCT so.name
-FROM syscomments sc
-INNER JOIN sysobjects so ON sc.id=so.id
-WHERE sc.TEXT LIKE '%f_app1_backup%'
  
  
 select flgSubType, t.dscValue, p.dscName, p.* 
