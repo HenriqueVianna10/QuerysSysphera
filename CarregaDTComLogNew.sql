@@ -30,6 +30,30 @@ BEGIN
 	Delete from DT_get_movimentacao
 	where sk_tempo in (select distinct sk_tempo from DT_etl_tmp_get_movimentacao)
 
+    DELETE
+FROM DT_app01_etl_despesas
+WHERE sk_tempo IN (
+		SELECT DISTINCT sk_tempo
+		FROM DT_app01_etl_tmp_despesas
+		WHERE sk_tempo IS NOT NULL
+		)
+
+SET @rownum1 = @@ROWCOUNT
+
+IF @rownum1 IS NULL
+	OR @rownum1 = 0
+BEGIN
+	SET @msg1 = '0 Registros Deletados.'
+END
+ELSE
+BEGIN
+	SET @msg1 = 'Dados Deletados com Sucesso, ' + CAST(@rownum1 AS VARCHAR(10)) + ' Registros Deletados.'
+END
+
+EXEC sp_t6_etl_log_add @msg1
+	,@grupo = 'Dados Históricos'
+	,@tipo_processo = @tipo_processo;
+
 	set @rownum1 = @@ROWCOUNT
 
 	select @competencia = tempo_l2 from d_tempo_app5
